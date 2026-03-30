@@ -1,10 +1,10 @@
-# Package name
-Package Name
+# Qroq
+Groq API interactions without dependencies.
 <pre>
-  pip install package-name
+  pip install qroq
 </pre>
 Then:
 ```Python
   # Python
-  import package_name
+  import qroq
 ```
