@@ -15,16 +15,14 @@ def respond(messages=None, instructions=None, **kwargs):
     """
     Sends a request to the Groq Responses API using only Python's built-in urllib.
     """
-    api_base = environ.get('GROQ_API_BASE', 'https://api.groq.com/openai/v1')
-    api_key = environ.get('GROQ_API_KEY', '')
-    default_model = environ.get('GROQ_DEFAULT_MODEL', 'openai/gpt-oss-120b')
-
-    instruction = kwargs.get('system_instruction', instructions)
+    api_base        = environ.get('GROQ_API_BASE', 'https://api.groq.com/openai/v1')
+    api_key         = environ.get('GROQ_API_KEY', '')
+    default_model   = environ.get('GROQ_DEFAULT_MODEL', 'openai/gpt-oss-120b')
 
     # Define the payload
     payload = {
         "model": kwargs.get("model", default_model),
-        "instructions": instruction,
+        "instructions": kwargs.get('system_instruction', instructions),
         "input": messages,
         "max_output_tokens": kwargs.get("max_tokens", 65536),
         "reasoning": {
@@ -39,7 +37,7 @@ def respond(messages=None, instructions=None, **kwargs):
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}",
-        "User-Agent": "Thingking-Machine"
+        "User-Agent": "Qroq-Agent"
     }
 
     # Create the Request object
@@ -80,7 +78,7 @@ def respond(messages=None, instructions=None, **kwargs):
 
 if __name__ == "__main__":
     messages = [{"role": "user", "content": "What model are you?"}]
-    instruction = "The assistant is Talking-Machine."
+    instruction = "The Assistant is Qroq-Agent."
     kwargs = {}
     thoughts, text = respond(messages, instruction, **kwargs)
     print(f"Thoughts:\n{thoughts}")
